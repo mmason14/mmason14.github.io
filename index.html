@@ -1,0 +1,36 @@
+<html> 
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+<link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css">
+<script src="javascript/voices.json"></script>    
+    
+</head>
+
+<div id="map" style="width: 600px; height: 400px;"></div>
+<script>
+var map = L.map('map').setView([42.3314, -83.0458], 13);    
+
+L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+  subdomains: 'abcd',
+  minZoom: 0,
+  maxZoom: 22,
+  maxNativeZoom: 18,
+    zindex: -1,
+}).addTo(map);
+    
+var geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+    
+var voices = L.geoJSON (voices, {
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).addTo(map);    
+</script>
+</html>
